@@ -1,0 +1,16 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rango</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'rango/css/style.css' %}">
+</head>
+<body>
+    <h1>Rango home page</h1>
+    <p><strong>{{ boldmessage }}</strong></p>
+    <img src="{% static 'rango/images/rango.jpg' %}" alt="Rango Logo">
+</body>
+</html>
