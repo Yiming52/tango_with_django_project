@@ -8,24 +8,28 @@
 </head>
 <body>
     <header>
-        <h1>Welcome to Rango</h1>
+        <h1>Rango</h1>
         <nav>
             <a href="{% url 'rango:index' %}">Home</a> |
-            <a href="{% url 'rango:about' %}">About</a>
+            <a href="{% url 'rango:about' %}">About</a> |
+            {% if user.is_authenticated %}
+              <a href="{% url 'rango:add_category' %}">Add Category</a> |
+              <a href="{% url 'rango:restricted' %}">Restricted Page</a> |
+              <a href="{% url 'rango:logout' %}">Logout</a>
+            {% else %}
+              <a href="{% url 'rango:login' %}">Login</a> |
+              <a href="{% url 'rango:register' %}">Register</a>
+            {% endif %}
         </nav>
     </header>
-    
     <hr>
-    
     <div id="content">
         {% block body_block %}
-        {% endblock %}
+        {% endblock body_block %}
     </div>
-    
     <hr>
-    
     <footer>
-        <p>&copy; 2025 Rango, by <strong>{{ yourname }}</strong>.</p>
+        <p>&copy; 2025 Rango, by <strong>Your Name</strong>.</p>
     </footer>
 </body>
 </html>

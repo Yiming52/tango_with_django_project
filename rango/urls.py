@@ -4,12 +4,15 @@ from rango import views
 app_name = 'rango'
 
 urlpatterns = [
-    # Home page
     path('', views.index, name='index'),
-    # About page
     path('about/', views.about, name='about'),
-    # Add a new category
+    path('category/<slug:category_name_slug>/', views.show_category, name='show_category'),
     path('add_category/', views.add_category, name='add_category'),
-    # Show a specific category by its slug
-    path('category/<str:category_name_slug>/', views.show_category, name='show_category'),
+    path('add_page/<slug:category_name_slug>/', views.add_page, name='add_page'),
+
+    # Chapter 9: User auth
+    path('register/', views.register, name='register'),
+    path('login/', views.user_login, name='login'),
+    path('restricted/', views.restricted, name='restricted'),
+    path('logout/', views.user_logout, name='logout'),
 ]

@@ -5,14 +5,11 @@
 <h2>Rango says...</h2>
 <div>
     <p>Here is the about page.</p>
-    <p>This tutorial has been put together by {{ yourname }}.</p>
+    <p>This tutorial has been put together by <strong>Your Name</strong>.</p>
 </div>
 
 <div>
     <a href="{% url 'rango:index' %}">Index</a><br>
     <img src="{% static 'rango/images/rango.jpg' %}" alt="Picture of Rango"><br>
-    <!-- 示例: 加载一个上传到 MEDIA_ROOT 下的图片 -->
-    <img src="{{ MEDIA_URL }}cat.jpg" alt="Picture of a Cat">
 </div>
-{% endblock %}
-
+{% endblock body_block %}

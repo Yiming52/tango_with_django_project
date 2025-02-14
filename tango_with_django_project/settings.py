@@ -2,9 +2,10 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = 'c&8zgffztuguukt_o2b*(5g*g^68833)c!)ayvn)#^#&)i_%*)'
+SECRET_KEY = 'replace-with-your-own-secret-key'
 DEBUG = True
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = []  # For development, you can leave this empty or add '127.0.0.1','localhost', etc.
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -13,8 +14,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rango',
-    
+    'rango',  # Our app
 ]
 
 MIDDLEWARE = [
@@ -32,7 +32,8 @@ ROOT_URLCONF = 'tango_with_django_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],  
+        # Add your templates directory here
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -40,7 +41,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-               
+                # Needed to load MEDIA_URL
                 'django.template.context_processors.media',
             ],
         },
@@ -49,6 +50,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'tango_with_django_project.wsgi.application'
 
+# Using SQLite database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -56,15 +58,20 @@ DATABASES = {
     }
 }
 
+# Internationalization settings
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+# Static files settings
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
+# Media files settings
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# Login URL for Chapter 9
+LOGIN_URL = '/rango/login/'

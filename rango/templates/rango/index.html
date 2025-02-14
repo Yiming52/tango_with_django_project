@@ -9,8 +9,6 @@
 </div>
 
 <div>
-    <a href="{% url 'rango:about' %}">About</a><br>
-    <a href="{% url 'rango:add_category' %}">Add a Category</a><br>
     <img src="{% static 'rango/images/rango.jpg' %}" alt="Picture of Rango"><br>
 </div>
 
@@ -20,10 +18,10 @@
     <ul>
     {% for category in categories %}
         <li>
-          <a href="{% url 'rango:show_category' category_name_slug=category.slug %}">
-            {{ category.name }}
-          </a>
-          (views: {{ category.views }}, likes: {{ category.likes }})
+            <a href="{% url 'rango:show_category' category.slug %}">
+                {{ category.name }}
+            </a>
+            (views: {{ category.views }}, likes: {{ category.likes }})
         </li>
     {% endfor %}
     </ul>
@@ -37,11 +35,11 @@
     <ul>
     {% for page in pages %}
         <li>
-          <a href="{{ page.url }}">{{ page.title }}</a> (views: {{ page.views }})
+            <a href="{{ page.url }}">{{ page.title }}</a> (views: {{ page.views }})
         </li>
     {% endfor %}
     </ul>
 {% else %}
     <p>No pages present.</p>
 {% endif %}
-{% endblock %}
+{% endblock body_block %}
