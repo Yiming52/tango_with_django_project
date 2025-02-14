@@ -1,11 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rango.models import Category, Page
+from rango.forms import CategoryForm
 
 def index(request):
-    
-    category_list = Category.objects.order_by('-views')[:5]
+    # For example, retrieve the top 5 categories and pages
+    category_list = Category.objects.order_by('-likes')[:5]
     page_list = Page.objects.order_by('-views')[:5]
-
+    
     context_dict = {
         'categories': category_list,
         'pages': page_list,
@@ -13,14 +14,12 @@ def index(request):
     return render(request, 'rango/index.html', context=context_dict)
 
 def about(request):
-    context_dict = {'yourname': 'Yiming'}  
-    return render(request, 'rango/about.html', context=context_dict)
+    return render(request, 'rango/about.html')
 
 def show_category(request, category_name_slug):
-    
     context_dict = {}
     try:
-        category = Category.objects.get(name=category_name_slug)
+        category = Category.objects.get(slug=category_name_slug)
         pages = Page.objects.filter(category=category)
         context_dict['category'] = category
         context_dict['pages'] = pages
@@ -29,3 +28,20 @@ def show_category(request, category_name_slug):
         context_dict['pages'] = None
 
     return render(request, 'rango/category.html', context=context_dict)
+
+def add_category(request):
+    """
+    Handles the submission of a new category via a form.
+    """
+    form = CategoryForm()
+
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            # After saving, redirect to the home page
+            return redirect('rango:index')
+        else:
+            print(form.errors)
+
+    return render(request, 'rango/add_category.html', {'form': form})

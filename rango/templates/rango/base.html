@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Rango{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Rango</h1>
+        <nav>
+            <a href="{% url 'rango:index' %}">Home</a>
+            <a href="{% url 'rango:about' %}">About</a>
+        </nav>
+    </header>
+    
+    <div id="content">
+        {% block body_block %}
+        {% endblock %}
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 Rango</p>
+    </footer>
+</body>
+</html>

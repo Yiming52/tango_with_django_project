@@ -5,7 +5,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('rango.urls')), 
+    # Include the rango app URLs at the root
+    path('', include('rango.urls')),
 ]
 
 if settings.DEBUG:
