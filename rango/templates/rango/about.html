@@ -7,14 +7,13 @@
 <body>
     <h1>Rango says...</h1>
     <div>
-        here is the about page.<br>
-        This tutorial has been put together by {{ yourname }}.
+        <p>here is the about page.</p>
+        <p>This tutorial has been put together by {{ yourname }}.</p>
     </div>
+
     <div>
-        <!-- Link back to the index page -->
         <a href="{% url 'rango:index' %}">Index</a><br>
         <img src="{% static 'rango/images/rango.jpg' %}" alt="Picture of Rango"><br>
-        <!-- Display media file (cat.jpg) using MEDIA_URL provided by the context processor -->
         <img src="{{ MEDIA_URL }}cat.jpg" alt="Picture of a Cat">
     </div>
 </body>
