@@ -1,16 +1,19 @@
-{% load static %}
-
 <!DOCTYPE html>
-<html lang="zh-CN">
+{% load static %}
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rango</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'rango/css/style.css' %}">
 </head>
 <body>
-    <h1>Rango home page</h1>
-    <p><strong>{{ boldmessage }}</strong></p>
-    <img src="{% static 'rango/images/rango.jpg' %}" alt="Rango Logo">
+    <h1>Rango says...</h1>
+    <div>
+        hey there partner! <br>
+        <strong>{{ boldmessage }}</strong><br>
+    </div>
+    <div>
+        <!-- Link to the about page using reverse URL lookup -->
+        <a href="{% url 'rango:about' %}">About</a><br>
+        <img src="{% static 'rango/images/rango.jpg' %}" alt="Picture of Rango">
+    </div>
 </body>
 </html>
