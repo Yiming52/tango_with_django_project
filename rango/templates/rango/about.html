@@ -1,20 +1,18 @@
-<!DOCTYPE html>
+{% extends 'rango/base.html' %}
 {% load static %}
-<html>
-<head>
-    <title>About Rango</title>
-</head>
-<body>
-    <h1>Rango says...</h1>
-    <div>
-        <p>here is the about page.</p>
-        <p>This tutorial has been put together by {{ yourname }}.</p>
-    </div>
+{% block title %}About{% endblock title %}
+{% block body_block %}
+<h2>Rango says...</h2>
+<div>
+    <p>Here is the about page.</p>
+    <p>This tutorial has been put together by {{ yourname }}.</p>
+</div>
 
-    <div>
-        <a href="{% url 'rango:index' %}">Index</a><br>
-        <img src="{% static 'rango/images/rango.jpg' %}" alt="Picture of Rango"><br>
-        <img src="{{ MEDIA_URL }}cat.jpg" alt="Picture of a Cat">
-    </div>
-</body>
-</html>
+<div>
+    <a href="{% url 'rango:index' %}">Index</a><br>
+    <img src="{% static 'rango/images/rango.jpg' %}" alt="Picture of Rango"><br>
+    <!-- 示例: 加载一个上传到 MEDIA_ROOT 下的图片 -->
+    <img src="{{ MEDIA_URL }}cat.jpg" alt="Picture of a Cat">
+</div>
+{% endblock %}
+
