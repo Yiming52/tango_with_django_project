@@ -9,7 +9,6 @@ class Category(models.Model):
     slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
-        # If slug is not set, generate it from the category name
         if not self.slug:
             self.slug = slugify(self.name)
         super(Category, self).save(*args, **kwargs)
@@ -30,7 +29,7 @@ class Page(models.Model):
         return self.title
 
 class UserProfile(models.Model):
-    # Links UserProfile to a User model instance
+    # Links a UserProfile to a User instance
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     # Additional attributes
@@ -39,3 +38,4 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+

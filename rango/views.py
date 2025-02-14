@@ -7,6 +7,8 @@ from django.http import HttpResponse
 from rango.models import Category, Page
 from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
 
+from datetime import datetime
+
 def index(request):
     category_list = Category.objects.order_by('-likes')[:5]
     page_list = Page.objects.order_by('-views')[:5]
@@ -15,14 +17,27 @@ def index(request):
     context_dict['categories'] = category_list
     context_dict['pages'] = page_list
 
+    # Handle the visit count via session
+    visitor_cookie_handler(request)
+    # Add 'visits' to the context so we can display it in the template if desired
+    context_dict['visits'] = request.session['visits']
+
     return render(request, 'rango/index.html', context=context_dict)
 
 def about(request):
-    return render(request, 'rango/about.html')
+    # Demonstrate how you could check if a test cookie worked (optional)
+    if request.session.test_cookie_worked():
+        print("TEST COOKIE WORKED!")
+        request.session.delete_test_cookie()
+
+    # Handle visits just like in index()
+    visitor_cookie_handler(request)
+    visits = request.session['visits'] if 'visits' in request.session else 1
+
+    return render(request, 'rango/about.html', context={'visits': visits})
 
 def show_category(request, category_name_slug):
     context_dict = {}
-
     try:
         category = Category.objects.get(slug=category_name_slug)
         pages = Page.objects.filter(category=category).order_by('-views')
@@ -37,7 +52,6 @@ def show_category(request, category_name_slug):
 @login_required
 def add_category(request):
     form = CategoryForm()
-
     if request.method == 'POST':
         form = CategoryForm(request.POST)
         if form.is_valid():
@@ -108,7 +122,6 @@ def user_login(request):
         password = request.POST.get('password')
 
         user = authenticate(username=username, password=password)
-
         if user:
             if user.is_active:
                 login(request, user)
@@ -129,3 +142,28 @@ def restricted(request):
 def user_logout(request):
     logout(request)
     return redirect(reverse('rango:index'))
+
+
+# ============ Helper function: using Session to track visits ============
+def visitor_cookie_handler(request):
+    """
+    Uses session data to track the number of visits and the last visit time.
+    In this version, the visit count increments if more than THRESHOLD seconds have passed.
+    """
+    THRESHOLD_SECONDS = 10  # Change this value to your desired interval in seconds
+    
+    visits = int(request.session.get('visits', '1'))
+    last_visit_str = request.session.get('last_visit', str(datetime.now()))
+
+    last_visit_time = datetime.strptime(last_visit_str, '%Y-%m-%d %H:%M:%S.%f')
+    
+    # Check if the difference in seconds is greater than our threshold
+    if (datetime.now() - last_visit_time).total_seconds() > THRESHOLD_SECONDS:
+        visits += 1
+        request.session['last_visit'] = str(datetime.now())
+    else:
+        # If not over the threshold, just update last_visit without incrementing
+        request.session['last_visit'] = last_visit_str
+
+    request.session['visits'] = visits
+

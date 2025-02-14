@@ -19,7 +19,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',  # Enables session support
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -32,17 +32,16 @@ ROOT_URLCONF = 'tango_with_django_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # Add your templates directory here
+        # Add your project's templates directory here
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',
+                'django.template.context_processors.request',  # Required for session/request data
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                # Needed to load MEDIA_URL
-                'django.template.context_processors.media',
+                'django.template.context_processors.media',  # Needed to load MEDIA_URL
             ],
         },
     },
@@ -50,7 +49,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'tango_with_django_project.wsgi.application'
 
-# Using SQLite database
+# Using SQLite
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -73,5 +72,5 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# Login URL for Chapter 9
+# For Chapter 9 (user auth)
 LOGIN_URL = '/rango/login/'
