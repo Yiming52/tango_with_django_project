@@ -15,6 +15,16 @@
 
     <img src="{% static 'images/rango.jpg' %}" alt="Picture of Rango" />
 
+    {% if categories %}
+    <ul>
+    {% for c in categories %}
+    <li><a href="/rango/category/{{ c.slug }}/">{{ c.name }}</a></li>
+    {% endfor %}
+    </ul>
+    {% else %}
+    <strong>There are no categories present.</strong>
+    {% endif %}
+
     <div>
         <a href="/rango/about/">About</a><br />
     </div>
